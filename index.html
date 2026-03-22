@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Yosra Meguebli — Tech Lead · AI Engineer · Full-Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-light: #4a4a46;
+    --ink-muted: #8a8a84;
+    --paper: #f7f5f0;
+    --paper-warm: #ede9e0;
+    --accent: #c8a96e;
+    --accent-dark: #a8894e;
+    --line: rgba(26,26,24,0.12);
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(247,245,240,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent-dark); }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 4rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1; max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 8rem;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+  .hero-name {
+    font-family: var(--font-serif);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s ease forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent-dark);
+  }
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink-light);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s ease forwards;
+  }
+  .hero-bio {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--ink-light);
+    max-width: 560px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s ease forwards;
+  }
+  .hero-cta {
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s ease forwards;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+  }
+  .btn-outline {
+    background: transparent;
+    border-color: var(--ink-muted);
+    color: var(--ink);
+  }
+  .btn-outline:hover {
+    border-color: var(--ink);
+    background: var(--paper-warm);
+  }
+  .hero-decoration {
+    position: absolute; right: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 260px; height: 260px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero-decoration::after {
+    content: '';
+    position: absolute; inset: 20px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+  }
+  .hero-badges {
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+    margin-top: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.95s ease forwards;
+  }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    background: var(--paper-warm);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%; height: 1px;
+    background: var(--line);
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 0 4rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0;
+    border: 1px solid var(--line);
+  }
+  .skill-card {
+    padding: 2.5rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transition: background 0.2s;
+  }
+  .skill-card:hover { background: var(--paper-warm); }
+  .skill-level {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 0.8rem;
+  }
+  .skill-name {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.55rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink-light);
+  }
+
+  /* ── PROJECTS ── */
+  .projects-list { display: flex; flex-direction: column; gap: 0; }
+  .project-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: background 0.2s;
+  }
+  .project-item:first-child { border-top: 1px solid var(--line); }
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    padding-top: 0.3rem;
+  }
+  .project-content {}
+  .project-status {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 0.5rem;
+  }
+  .project-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    max-width: 580px;
+  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    padding: 0.18rem 0.5rem;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+  }
+  .project-link {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    padding-top: 0.3rem;
+    transition: color 0.2s;
+  }
+  .project-link:hover { color: var(--accent-dark); }
+  .project-link.nda { color: var(--line); cursor: default; }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 3.5rem; }
+  .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; }
+  .exp-meta { text-align: right; }
+  .exp-date {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .exp-company {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink-light);
+  }
+  .exp-role {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .exp-desc {
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .exp-bullets li {
+    font-size: 0.83rem;
+    color: var(--ink-light);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.7;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  /* ── PUBLICATIONS & EDUCATION ── */
+  .pub-edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .pub-item, .edu-item {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2rem;
+  }
+  .pub-item:last-child, .edu-item:last-child { border-bottom: none; margin-bottom: 0; }
+  .sub-section-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 2rem;
+  }
+  .pub-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  .pub-venue {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--accent-dark);
+    margin-bottom: 0.5rem;
+  }
+  .pub-link {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+  .pub-link:hover { color: var(--accent-dark); }
+  .edu-degree {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .edu-school {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--ink-light);
+    margin-bottom: 0.2rem;
+  }
+  .edu-year {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+  }
+
+  /* ── CONTACT ── */
+  #contact { text-align: center; }
+  .contact-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+  .contact-sub {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 3rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-email {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .contact-email:hover { color: var(--accent-dark); }
+  .contact-links {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-top: 3rem;
+  }
+  .contact-link {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--ink); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  footer span {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .exp-item { grid-template-columns: 1fr; }
+    .exp-meta { text-align: left; }
+    .pub-edu-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .project-item { grid-template-columns: 40px 1fr; }
+    .project-link { display: none; }
+    .hero-decoration { display: none; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">YM</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Tech Lead · AI Engineer · Full-Stack Developer</div>
+  <h1 class="hero-name">Yosra <em>Meguebli</em></h1>
+  <div class="hero-title">Backend Senior · AI Engineering Senior · Remote</div>
+  <p class="hero-bio">
+    Building AI-powered document processing pipelines and SaaS ERP systems.
+    PhD candidate in Deep Learning. 5+ years delivering from architecture to production.
+  </p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn btn-primary">Get in touch</a>
+    <a href="https://github.com/Yosra-Megbli" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    <a href="https://linkedin.com/in/meguebli-yosra" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+  </div>
+  <div class="hero-badges">
+    <span class="badge">Python · Django · FastAPI</span>
+    <span class="badge">Next.js · TypeScript · React</span>
+    <span class="badge">LayoutLMv3 · PaddleOCR</span>
+    <span class="badge">Docker · GitHub Actions</span>
+    <span class="badge">Frappe · ERPNext</span>
+    <span class="badge">PhD — Deep Learning</span>
+  </div>
+  <div class="hero-decoration"></div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills & Stack</div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-level">Senior</div>
+      <div class="skill-name">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span><span class="skill-tag">Django</span>
+        <span class="skill-tag">DRF</span><span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">Celery</span><span class="skill-tag">REST API</span>
+        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">Redis</span>
+        <span class="skill-tag">MariaDB</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-level">Senior</div>
+      <div class="skill-name">AI Engineering</div>
+      <div class="skill-tags">
+        <span class="skill-tag">LayoutLMv3</span><span class="skill-tag">PaddleOCR</span>
+        <span class="skill-tag">Donut</span><span class="skill-tag">DiT</span>
+        <span class="skill-tag">ResNet50</span><span class="skill-tag">EasyOCR</span>
+        <span class="skill-tag">TensorFlow</span><span class="skill-tag">TF-IDF</span>
+        <span class="skill-tag">Fine-tuning · NER</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-level">Proficient</div>
+      <div class="skill-name">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span><span class="skill-tag">Next.js 14</span>
+        <span class="skill-tag">TypeScript</span><span class="skill-tag">Zustand</span>
+        <span class="skill-tag">Frappe</span><span class="skill-tag">ERPNext v15</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-level">Operational</div>
+      <div class="skill-name">DevOps & Methods</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Docker</span><span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Render</span><span class="skill-tag">RunPod</span>
+        <span class="skill-tag">CI/CD</span><span class="skill-tag">ADRs</span>
+        <span class="skill-tag">Agile</span><span class="skill-tag">ISO 9001/27001</span>
+        <span class="skill-tag">Neo4j</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-level">Senior</div>
+      <div class="skill-name">C / C++</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Systems Programming</span>
+        <span class="skill-tag">2D Game Dev</span>
+        <span class="skill-tag">Architecture</span>
+        <span class="skill-tag">Code Review</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-level">Leadership</div>
+      <div class="skill-name">Tech Lead</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Architecture Design</span>
+        <span class="skill-tag">Team Mentoring</span>
+        <span class="skill-tag">Charter & CDC</span>
+        <span class="skill-tag">CEO Coordination</span>
+        <span class="skill-tag">Product Vision</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <div class="projects-list">
+
+    <div class="project-item reveal">
+      <div class="project-num">01</div>
+      <div class="project-content">
+        <div class="project-status">Active · NDA · 2026</div>
+        <div class="project-title">AI Document Processing Platform</div>
+        <p class="project-desc">
+          End-to-end 4-module AI pipeline: OCR &amp; document extraction, legal compliance
+          (Tunisian regulations — Code TVA, CNSS, Loi Finances 2025), ERP recommendation,
+          and ERP integration. 263-field JSON Schema · 24 document classes · event-driven architecture.
+        </p>
+        <div class="project-stack">
+          <span class="project-tag">Django REST</span><span class="project-tag">Celery</span>
+          <span class="project-tag">PaddleOCR</span><span class="project-tag">LayoutLMv3</span>
+          <span class="project-tag">React</span><span class="project-tag">Neo4j</span>
+          <span class="project-tag">PostgreSQL</span><span class="project-tag">Redis</span>
+          <span class="project-tag">GitHub Actions</span><span class="project-tag">Render</span>
+        </div>
+      </div>
+      <span class="project-link nda">NDA</span>
+    </div>
+
+    <div class="project-item reveal">
+      <div class="project-num">02</div>
+      <div class="project-content">
+        <div class="project-status">Active · NDA · 2025</div>
+        <div class="project-title">Multi-Tenant SaaS ERP</div>
+        <p class="project-desc">
+          Modular SaaS ERP for Tunisian SMEs. Onboards a new client in ~1 day vs.
+          industry standard of weeks. Full-stack: custom Frappe backend, REST API,
+          Next.js UI with onboarding wizard and super-admin dashboard.
+        </p>
+        <div class="project-stack">
+          <span class="project-tag">ERPNext v15</span><span class="project-tag">Frappe</span>
+          <span class="project-tag">Next.js 14</span><span class="project-tag">TypeScript</span>
+          <span class="project-tag">Zustand</span><span class="project-tag">MariaDB</span>
+          <span class="project-tag">Redis</span><span class="project-tag">Docker</span>
+          <span class="project-tag">Render</span><span class="project-tag">RunPod</span>
+        </div>
+      </div>
+      <span class="project-link nda">NDA</span>
+    </div>
+
+    <div class="project-item reveal">
+      <div class="project-num">03</div>
+      <div class="project-content">
+        <div class="project-status">Open Source · 2025</div>
+        <div class="project-title">DocClassify AI</div>
+        <p class="project-desc">
+          Document classification pipeline combining ResNet50 CNN, EasyOCR (FR/EN), and TF-IDF NLP.
+          CNN+OCR fusion: +8% accuracy boost. 85–92% accuracy on 4 document classes,
+          ~2–3s/document, SHA-256 dedup, native ERPNext REST integration.
+        </p>
+        <div class="project-stack">
+          <span class="project-tag">ResNet50</span><span class="project-tag">EasyOCR</span>
+          <span class="project-tag">TF-IDF</span><span class="project-tag">FastAPI</span>
+          <span class="project-tag">ERPNext</span><span class="project-tag">JWT</span>
+          <span class="project-tag">Swagger UI</span>
+        </div>
+      </div>
+      <a href="https://github.com/Yosra-Megbli/CNN-Fastapi-ERPnext" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Jan 2026 — Present</div>
+        <div class="exp-company">AI SaaS Startup, Tunisia</div>
+      </div>
+      <div>
+        <div class="exp-role">Tech Lead — AI Document Processing Platform</div>
+        <p class="exp-desc">Simultaneous role. Designed full architecture for a 4-module AI pipeline in active development, coordinating a team of 2 engineering interns under CEO direction.</p>
+        <ul class="exp-bullets">
+          <li>Multi-module event-driven architecture (Django REST + React) with 5-job parallel CI/CD</li>
+          <li>263-field JSON Schema · 24 document classes · Tunisian legal compliance</li>
+          <li>Charter V0 (6+ versions) · CDC M1 V5.5 · ADRs V1.0 · V30 strategic study</li>
+          <li>Admin interface deployed on Render · CEO coordination</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">2025 — Present</div>
+        <div class="exp-company">ERP SaaS, Tunisia</div>
+      </div>
+      <div>
+        <div class="exp-role">Founder · Tech Lead · Full-Stack Developer</div>
+        <p class="exp-desc">Simultaneous role. End-to-end ownership of a SaaS ERP for Tunisian SMEs, from architecture decisions to production deployment, with a demo client live.</p>
+        <ul class="exp-bullets">
+          <li>Full-stack: Frappe + React + TypeScript + Next.js + Zustand + Docker Compose</li>
+          <li>Custom Frappe backend · REST API (manufacturing) · onboarding wizard · super admin</li>
+          <li>Team coordination: BA + Product Lead · DevOps automation scripts</li>
+          <li>Cloud deployment on Render & RunPod</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Jan 2020 — Sep 2024</div>
+        <div class="exp-company">ESPRIT, Tunisia</div>
+      </div>
+      <div>
+        <div class="exp-role">Technical Supervisor — Practical C Programming</div>
+        <p class="exp-desc">Delivered a fully functional software product every semester with a team of junior developers at Tunisia's #1 CS school.</p>
+        <ul class="exp-bullets">
+          <li>Full cycle each semester: architecture to delivery of a complete 2D game in C</li>
+          <li>Weekly code & design reviews · real-time correction · junior → autonomy coaching</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PUBLICATIONS & EDUCATION -->
+<section id="publications">
+  <div class="section-label">Research & Education</div>
+  <div class="pub-edu-grid">
+    <div>
+      <div class="sub-section-title">Publications</div>
+      <div class="pub-item reveal">
+        <div class="pub-title">Deep Learning Architecture for Off-Line Recognition of Handwritten Math Symbols</div>
+        <div class="pub-venue">MedPRAI 2020 — International Conference</div>
+        <a href="https://www.researchgate.net/publication/350128897" target="_blank" class="pub-link">ResearchGate ↗</a>
+      </div>
+      <div class="pub-item reveal">
+        <div class="pub-title">PhD Research — Road Accident Detection</div>
+        <div class="pub-venue">ENET'COM · 2021 – Present (Deep Learning)</div>
+      </div>
+    </div>
+    <div>
+      <div class="sub-section-title">Education</div>
+      <div class="edu-item reveal">
+        <div class="edu-degree">PhD Candidate — Computer Science</div>
+        <div class="edu-school">ENET'COM, Sfax</div>
+        <div class="edu-year">2021 – Present · Deep Learning</div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-degree">Master in CS — Mention Bien</div>
+        <div class="edu-school">ENSIT, Tunis</div>
+        <div class="edu-year">2020 · Deep Learning · Handwritten Math</div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-degree">Bachelor's Degree in CS</div>
+        <div class="edu-school">ESSTT, Tunis</div>
+        <div class="edu-year">2010</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" style="justify-content:center;">Contact</div>
+  <h2 class="contact-heading">Let's work<br/>together.</h2>
+  <p class="contact-sub">Open to remote Senior Full-Stack, Tech Lead, or AI Engineering roles worldwide.</p>
+  <a href="mailto:yosra.meguebli@yahoo.fr" class="contact-email">yosra.meguebli@yahoo.fr</a>
+  <div class="contact-links">
+    <a href="https://linkedin.com/in/meguebli-yosra" target="_blank" class="contact-link">LinkedIn</a>
+    <a href="https://github.com/Yosra-Megbli" target="_blank" class="contact-link">GitHub</a>
+  </div>
+</section>
+
+<footer>
+  <span>Yosra Meguebli — Tataouine, Tunisia · Remote OK</span>
+  <span>Tech Lead · AI Engineer · Full-Stack Developer</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
